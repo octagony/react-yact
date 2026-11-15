@@ -17,3 +17,12 @@ export const UNIT_STEPS: ReadonlyArray<readonly [Intl.RelativeTimeFormatUnit, nu
   ['minute', 60],
   ['second', 1],
 ];
+
+export const DEFAULT_THREAD_PALETTE: readonly string[] = [
+  '#4d7cff',
+  '#ff5c9d',
+  '#ffb020',
+  '#3ddc97',
+  '#22d3ee',
+  '#a78bfa',
+];

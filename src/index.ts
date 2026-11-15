@@ -1,3 +1,1 @@
-export function countComments(): number {
-  return 0;
-}
+export * from '@/utils';
