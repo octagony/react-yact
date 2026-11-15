@@ -1,4 +1,4 @@
-import { COMMENT_POSITION_END, COMMENT_POSITION_START } from "@/utils/constants";
+import { COMMENT_POSITION_END, COMMENT_POSITION_START } from '@/utils/constants';
 
 export interface ITreeNodeLike<TChild = unknown> {
   id: string | number;
