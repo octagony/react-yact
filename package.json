@@ -2,28 +2,47 @@
   "name": "react-yact",
   "version": "0.1.0",
   "description": "Comments tree for React",
-  "keywords": [],
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [
+    "comments",
+    "tree",
+    "react",
+    "component"
+  ],
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
   },
-  "dependencies": {
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c && tsc --emitDeclarationOnly --declaration --outDir dist/types && tsc-alias -p tsconfig.json --outDir dist/types",
+    "dev": "rollup -c -w",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-alias": "^6.0.1",
     "@rollup/plugin-typescript": "^12.3.1",
-    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "rollup": "^4.68.3",
-    "rollup-plugin-dts": "^6.5.1",
+    "tsc-alias": "^1.9.10",
     "tslib": "^2.9.1",
-    "typescript": "^7.0.2"
+    "typescript": "~5.9.0"
   }
 }
