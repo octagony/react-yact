@@ -27,22 +27,35 @@
   "scripts": {
     "build": "rollup -c && tsc --emitDeclarationOnly --declaration --outDir dist/types && tsc-alias -p tsconfig.json --outDir dist/types",
     "dev": "rollup -c -w",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run type-check && npm run lint && npm run format:check"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@rollup/plugin-alias": "^6.0.1",
     "@rollup/plugin-typescript": "^12.3.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "rollup": "^4.68.3",
     "tsc-alias": "^1.9.10",
     "tslib": "^2.9.1",
-    "typescript": "~5.9.0"
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.72.2"
   }
 }

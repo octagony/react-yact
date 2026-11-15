@@ -1,4 +1,3 @@
-
 export function countComments(): number {
-	return 0;
+  return 0;
 }
