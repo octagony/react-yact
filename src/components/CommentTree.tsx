@@ -14,10 +14,9 @@ function CommentTreeRoot({ comments, className }: ICommentTreeProps) {
       '--yact-pad': `${preset.pad}px`,
       '--yact-avatar': `${preset.avatar}px`,
       '--yact-font-size': `${config.fontSize * preset.scale}px`,
-      '--yact-font':
-        'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      '--yact-font': config.fontFamily,
     }),
-    [config.accent, config.fontSize, preset],
+    [config, preset],
   );
 
   return (

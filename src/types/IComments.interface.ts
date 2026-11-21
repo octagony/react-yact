@@ -78,6 +78,7 @@ export interface ICommentTreeConfig extends ICommentTreeSlots {
   rainbowThreads: boolean;
   collapsible: boolean;
   autoCollapseDepth: number;
+  fontFamily: string;
   formatTime: (date: Date) => string;
   labels: {
     op: string;

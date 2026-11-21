@@ -48,6 +48,8 @@ export const DEFAULT_CONFIG: ICommentTreeConfig = {
   rainbowThreads: false,
   collapsible: true,
   autoCollapseDepth: 0,
+  fontFamily:
+    'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   formatTime: formatRelativeTime,
   labels: {
     op: 'OP',
