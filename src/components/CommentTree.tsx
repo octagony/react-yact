@@ -1,9 +1,9 @@
 import { CommentTreeProvider, useCommentTreeConfig } from '@/context/CommentTreeContext';
-import { ICommentTreeProps } from '@/types/IComments.interface';
 import { collectCollapsibleIds } from '@/utils';
 import { DENSITY_PRESETS } from '@/utils/constants';
 import { useCallback, useMemo, useState } from 'react';
 import { CommentItem } from './CommentItem';
+import { ICommentTreeProps } from '@/types/ICommentTree.interface';
 
 function CommentTreeRoot({
   comments,

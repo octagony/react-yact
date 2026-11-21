@@ -1,13 +1,35 @@
 import type { CSSProperties } from 'react';
 import { useCommentTreeConfig } from '@/context/CommentTreeContext';
-import { ICommentItemProps } from '@/types/IComments.interface';
 import { countDescendants, DEFAULT_THREAD_PALETTE, pickByDepth } from '@/utils';
+import { ICommentItemProps } from '@/types/ICommentItem.interface';
+import { ICommentSlotContext } from '@/types/ICommentTree.interface';
 
 export function CommentItem({ comment, depth, collapsed, onToggle }: ICommentItemProps) {
   const config = useCommentTreeConfig();
   const children = comment.children ?? [];
+  const isCollapsed = collapsed.has(comment.id);
+  const hasChildren = children.length > 0;
   const canCollapse = config.collapsible && children.length > 0;
   const hiddenCount = countDescendants(comment);
+
+  const ctx: ICommentSlotContext = {
+    depth,
+    isCollapsed,
+    hasChildren,
+    hiddenCount,
+    config,
+    toggle: () => onToggle(comment.id),
+  };
+
+  const hasHead =
+    canCollapse ||
+    Boolean(
+      config.renderAvatar ||
+      config.renderAuthor ||
+      config.renderTimestamp ||
+      config.renderScore ||
+      config.renderMeta,
+    );
 
   const threadColor = config.rainbowThreads
     ? pickByDepth(depth, DEFAULT_THREAD_PALETTE)
@@ -26,57 +48,60 @@ export function CommentItem({ comment, depth, collapsed, onToggle }: ICommentIte
           type="button"
           className="yact-rail"
           disabled={!canCollapse}
-          aria-label={collapsed.has(comment.id) ? config.labels.expand : config.labels.collapse}
-          onClick={() => canCollapse && onToggle(comment.id)}
+          aria-label={isCollapsed ? config.labels.expand : config.labels.collapse}
+          onClick={ctx.toggle}
         />
       )}
 
       <div className="yact-main">
-        {collapsed.has(comment.id) ? (
-          (config.renderCollapsed?.(comment, hiddenCount) ?? (
+        {isCollapsed ? (
+          (config.renderCollapsed?.(comment, ctx) ?? (
             <div className="yact-collapsed">
               {canCollapse && (
                 <button
                   type="button"
                   className="yact-toggle"
-                  onClick={() => onToggle(comment.id)}
+                  onClick={ctx.toggle}
                   aria-label={config.labels.expand}
                 >
                   +
                 </button>
               )}
-              <span className="yact-author">{comment.author.name}</span>
+              {config.renderAuthor?.(comment, ctx)}
               <span className="yact-hidden">{config.labels.hiddenReplies(hiddenCount)}</span>
             </div>
           ))
         ) : (
           <>
-            <div className="yact-head">
-              {canCollapse && (
-                <button
-                  type="button"
-                  className="yact-toggle"
-                  onClick={() => onToggle(comment.id)}
-                  aria-label={config.labels.collapse}
-                >
-                  −
-                </button>
-              )}
-
-              {config.renderAvatar?.(comment)}
-
-              <span className="yact-author">{comment.author.name}</span>
-
-              {config.renderMeta?.(comment)}
-            </div>
-
-            <div className="yact-content">{config.renderContent?.(comment) ?? comment.content}</div>
-
-            {config.renderActions && (
-              <div className="yact-actions">{config.renderActions(comment)}</div>
+            {hasHead && (
+              <div className="yact-head">
+                {canCollapse && (
+                  <button
+                    type="button"
+                    className="yact-toggle"
+                    onClick={ctx.toggle}
+                    aria-label={config.labels.collapse}
+                  >
+                    −
+                  </button>
+                )}
+                {config.renderAvatar?.(comment, ctx)}
+                {config.renderAuthor?.(comment, ctx)}
+                {config.renderTimestamp?.(comment, ctx)}
+                {config.renderScore?.(comment, ctx)}
+                {config.renderMeta?.(comment, ctx)}
+              </div>
             )}
 
-            {children.length > 0 && (
+            <div className="yact-content">
+              {config.renderContent?.(comment, ctx) ?? comment.content}
+            </div>
+
+            {config.renderActions && (
+              <div className="yact-actions">{config.renderActions(comment, ctx)}</div>
+            )}
+
+            {hasChildren && (
               <ul className="yact-children">
                 {children.map((child) => (
                   <CommentItem

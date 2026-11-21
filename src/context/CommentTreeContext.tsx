@@ -1,4 +1,4 @@
-import { ICommentTreeConfig, ICommentTreeProviderProps } from '@/types/IComments.interface';
+import { ICommentTreeConfig, ICommentTreeProviderProps } from '@/types/ICommentTree.interface';
 import { DEFAULT_CONFIG } from '@/utils/constants';
 import { createContext, useContext, useMemo } from 'react';
 

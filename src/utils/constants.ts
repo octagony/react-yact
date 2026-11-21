@@ -1,4 +1,4 @@
-import { ICommentTreeConfig } from '@/types/IComments.interface';
+import { ICommentTreeConfig } from '@/types/ICommentTree.interface';
 import { formatRelativeTime } from '@/utils/format';
 
 export const COMMENT_POSITION_START = 'start';

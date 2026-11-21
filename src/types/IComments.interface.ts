@@ -1,13 +1,4 @@
-import {
-  COMMENT_POSITION_END,
-  COMMENT_POSITION_START,
-  YACT_THEME_DARK,
-  YACT_THEME_LIGHT,
-} from '@/utils/constants';
-import { ReactNode } from 'react';
-
-export type TCommentThreeTheme = typeof YACT_THEME_LIGHT | typeof YACT_THEME_DARK;
-export type TCommentThreeDensity = 'compact' | 'cozy' | 'roomy';
+import { COMMENT_POSITION_END, COMMENT_POSITION_START } from '@/utils/constants';
 
 export interface ITreeNodeLike<TChild = unknown> {
   id: string | number;
@@ -56,57 +47,4 @@ export interface ICommentNode {
   editedAt?: string | number | Date | null;
   score?: number;
   children?: ICommentNode[];
-}
-
-export interface ICommentTreeSlots {
-  renderAvatar?: (comment: ICommentNode) => ReactNode;
-  renderMeta?: (comment: ICommentNode) => ReactNode;
-  renderContent?: (comment: ICommentNode) => ReactNode;
-  renderActions?: (comment: ICommentNode) => ReactNode;
-  renderCollapsed?: (comment: ICommentNode, hiddenCount: number) => ReactNode;
-  renderEmpty?: () => ReactNode;
-}
-
-export interface ICommentTreeConfig extends ICommentTreeSlots {
-  theme: TCommentThreeTheme;
-  density: TCommentThreeDensity;
-  accent: string;
-  indent: number;
-  maxDepth: number;
-  fontSize: number;
-  showThreadLines: boolean;
-  rainbowThreads: boolean;
-  collapsible: boolean;
-  autoCollapseDepth: number;
-  fontFamily: string;
-  formatTime: (date: Date) => string;
-  labels: {
-    op: string;
-    edited: string;
-    collapse: string;
-    expand: string;
-    depthLimit: string;
-    hiddenReplies: (count: number) => string;
-  };
-}
-
-export type ICommentTreeOverrides = Partial<ICommentTreeConfig>;
-
-export interface ICommentTreeProviderProps extends ICommentTreeOverrides {
-  children: ReactNode;
-}
-
-export interface ICommentTreeProps extends ICommentTreeOverrides {
-  comments: readonly ICommentNode[];
-  className?: string;
-  collapsedIds?: readonly (string | number)[];
-  defaultCollapsedIds?: readonly (string | number)[];
-  onCollapsedChange?: (ids: (string | number)[]) => void;
-}
-
-export interface ICommentItemProps {
-  comment: ICommentNode;
-  depth: number;
-  collapsed: ReadonlySet<string | number>;
-  onToggle: (id: string | number) => void;
 }
