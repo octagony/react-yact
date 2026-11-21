@@ -1,9 +1,9 @@
-import { CommentTreeProvider, useCommentTreeConfig } from '@/context/CommentTreeContext';
-import { collectCollapsibleIds } from '@/utils';
-import { DENSITY_PRESETS } from '@/utils/constants';
 import { useCallback, useMemo, useState } from 'react';
-import { CommentItem } from './CommentItem';
-import { ICommentTreeProps } from '@/types/ICommentTree.interface';
+import type { CSSProperties } from 'react';
+import type { ICommentTreeProps } from '@/types/ICommentTree.interface';
+import { CommentTreeProvider, useCommentTreeConfig } from '@/context/CommentTreeContext';
+import { CommentItem } from '@/components/CommentItem';
+import { collectCollapsibleIds } from '@/utils';
 
 function CommentTreeRoot({
   comments,
@@ -13,7 +13,6 @@ function CommentTreeRoot({
   onCollapsedChange,
 }: ICommentTreeProps) {
   const config = useCommentTreeConfig();
-  const preset = DENSITY_PRESETS[config.density];
 
   const [internalCollapsed, setInternalCollapsed] = useState<readonly (string | number)[]>(() => {
     if (defaultCollapsedIds) {
@@ -44,22 +43,17 @@ function CommentTreeRoot({
     [collapsed, collapsedIds, collapsedSet, onCollapsedChange],
   );
 
-  const rootStyle = useMemo<Record<string, string>>(
-    () => ({
-      '--yact-accent': config.accent,
-      '--yact-gap': `${preset.gap}px`,
-      '--yact-pad': `${preset.pad}px`,
-      '--yact-avatar': `${preset.avatar}px`,
-      '--yact-font-size': `${config.fontSize * preset.scale}px`,
-      '--yact-font': config.fontFamily,
-    }),
-    [config, preset],
-  );
+  const rootStyle = {
+    '--yact-accent': config.accent,
+    '--yact-font-family': config.fontFamily,
+    '--yact-font-size': `${config.fontSize}px`,
+  } as CSSProperties;
 
   return (
     <div
       className={className ? `yact ${className}` : 'yact'}
       data-yact-theme={config.theme}
+      data-yact-density={config.density}
       style={rootStyle}
     >
       {comments.length === 0 ? (

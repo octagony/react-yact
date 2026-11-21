@@ -9,7 +9,9 @@
     "component"
   ],
   "license": "MIT",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/types/index.d.ts",
@@ -19,13 +21,14 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./styles.css": "./dist/styles/main.css",
     "./package.json": "./package.json"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c && tsc --emitDeclarationOnly --declaration --outDir dist/types && tsc-alias -p tsconfig.json --outDir dist/types",
+    "build": "rollup -c && tsc --emitDeclarationOnly --declaration --outDir dist/types && tsc-alias -p tsconfig.json --outDir dist/types && node -e \"require('fs').cpSync('src/styles','dist/styles',{recursive:true})\"",
     "dev": "rollup -c -w",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",

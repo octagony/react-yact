@@ -1,0 +1,208 @@
+.yact {
+  --yact-accent: #4d7cff;
+  --yact-font-family:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --yact-font-size: 14px;
+  --yact-font-scale: 1;
+  --yact-gap: 10px;
+  --yact-pad: 14px;
+  --yact-avatar: 28px;
+  --yact-indent: 22px;
+  --yact-thread-width: 2px;
+  --yact-radius: 12px;
+
+  --yact-bg: #0b0f17;
+  --yact-surface: #121826;
+  --yact-border: #212b3d;
+  --yact-line: #2a3448;
+  --yact-text: #e7ecf6;
+  --yact-muted: #8592ab;
+
+  box-sizing: border-box;
+  padding: var(--yact-pad);
+  border: 1px solid var(--yact-border);
+  border-radius: var(--yact-radius);
+  background: var(--yact-bg);
+  color: var(--yact-text);
+  font-family: var(--yact-font-family);
+  font-size: calc(var(--yact-font-size) * var(--yact-font-scale));
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.yact *,
+.yact *::before,
+.yact *::after {
+  box-sizing: border-box;
+}
+
+.yact[data-yact-theme='light'] {
+  --yact-bg: #fbfcfe;
+  --yact-surface: #ffffff;
+  --yact-border: #e2e8f2;
+  --yact-line: #d3dbe8;
+  --yact-text: #111726;
+  --yact-muted: #5d6a80;
+}
+
+.yact[data-yact-density='compact'] {
+  --yact-gap: 6px;
+  --yact-pad: 10px;
+  --yact-avatar: 22px;
+  --yact-font-scale: 0.94;
+}
+
+.yact[data-yact-density='cozy'] {
+  --yact-gap: 10px;
+  --yact-pad: 14px;
+  --yact-avatar: 28px;
+  --yact-font-scale: 1;
+}
+
+.yact[data-yact-density='roomy'] {
+  --yact-gap: 15px;
+  --yact-pad: 20px;
+  --yact-avatar: 34px;
+  --yact-font-scale: 1.07;
+}
+
+.yact-list,
+.yact-children {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.yact-item {
+  display: flex;
+  align-items: stretch;
+}
+
+.yact-main {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: var(--yact-gap);
+}
+
+.yact-rail {
+  position: relative;
+  flex: 0 0 var(--yact-indent);
+  width: var(--yact-indent);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.yact-rail::before {
+  content: '';
+  position: absolute;
+  inset: 2px auto 2px 50%;
+  width: var(--yact-thread-width);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--yact-thread, var(--yact-line));
+  transition:
+    background 0.15s ease,
+    width 0.15s ease;
+}
+
+.yact-rail:disabled {
+  cursor: default;
+}
+
+.yact-rail:not(:disabled):hover::before,
+.yact-rail:not(:disabled):focus-visible::before {
+  width: calc(var(--yact-thread-width) + 1px);
+  background: var(--yact-accent);
+}
+
+.yact-rail:focus-visible {
+  outline: 2px solid var(--yact-accent);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+.yact-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--yact-avatar);
+}
+
+.yact-content {
+  margin-top: 4px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.yact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.yact-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--yact-border);
+  border-radius: 6px;
+  background: var(--yact-surface);
+  color: var(--yact-muted);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.yact-toggle:hover {
+  border-color: var(--yact-accent);
+  color: var(--yact-accent);
+}
+
+.yact-toggle:focus-visible {
+  outline: 2px solid var(--yact-accent);
+  outline-offset: 2px;
+}
+
+.yact-collapsed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border: 1px dashed var(--yact-border);
+  border-radius: 9px;
+  background: var(--yact-surface);
+}
+
+.yact-hidden {
+  color: var(--yact-muted);
+  font-size: 0.82em;
+  font-variant-numeric: tabular-nums;
+}
+
+.yact-empty {
+  padding: 26px 16px;
+  border: 1px dashed var(--yact-border);
+  border-radius: 10px;
+  color: var(--yact-muted);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yact-rail::before,
+  .yact-toggle {
+    transition: none;
+  }
+}

@@ -2,12 +2,12 @@ import { YACT_THEME_DARK, YACT_THEME_LIGHT } from '@/utils/constants';
 import { ReactNode } from 'react';
 import { ICommentNode } from '@/types/IComments.interface';
 
-export type TCommentThreeTheme = typeof YACT_THEME_LIGHT | typeof YACT_THEME_DARK;
-export type TCommentThreeDensity = 'compact' | 'cozy' | 'roomy';
+export type TCommentTreeTheme = typeof YACT_THEME_LIGHT | typeof YACT_THEME_DARK;
+export type TCommentTreeDensity = 'compact' | 'cozy' | 'roomy';
 
 export interface ICommentTreeConfig extends ICommentTreeSlots {
-  theme: TCommentThreeTheme;
-  density: TCommentThreeDensity;
+  theme: TCommentTreeTheme;
+  density: TCommentTreeDensity;
   accent: string;
   indent: number;
   maxDepth: number;

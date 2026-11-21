@@ -61,9 +61,3 @@ export const DEFAULT_CONFIG: ICommentTreeConfig = {
       `${count} hidden ${count === 1 ? 'reply' : 'replies'}`,
   },
 };
-
-export const DENSITY_PRESETS = {
-  compact: { gap: 6, pad: 10, avatar: 22, scale: 0.95 },
-  cozy: { gap: 10, pad: 14, avatar: 28, scale: 1 },
-  roomy: { gap: 15, pad: 20, avatar: 34, scale: 1.1 },
-};
