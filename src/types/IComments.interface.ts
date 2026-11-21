@@ -94,3 +94,11 @@ export type ICommentTreeOverrides = Partial<ICommentTreeConfig>;
 export interface ICommentTreeProviderProps extends ICommentTreeOverrides {
   children: ReactNode;
 }
+
+export interface ICommentTreeProps extends ICommentTreeOverrides {
+  comments: readonly ICommentNode[];
+  className?: string;
+  collapsedIds?: readonly string[] | number[];
+  defaultCollapsedIds?: readonly string[] | number[];
+  onCollapsedChange?: (ids: string[] | number[]) => void;
+}
