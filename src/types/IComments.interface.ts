@@ -1,5 +1,10 @@
-import { COMMENT_POSITION_END, COMMENT_POSITION_START, YACT_THEME_DARK, YACT_THEME_LIGHT } from '@/utils/constants';
-import { ReactNode } from "react";
+import {
+  COMMENT_POSITION_END,
+  COMMENT_POSITION_START,
+  YACT_THEME_DARK,
+  YACT_THEME_LIGHT,
+} from '@/utils/constants';
+import { ReactNode } from 'react';
 
 export type TCommentThreeTheme = typeof YACT_THEME_LIGHT | typeof YACT_THEME_DARK;
 export type TCommentThreeDensity = 'compact' | 'cozy' | 'roomy';
@@ -62,7 +67,6 @@ export interface ICommentTreeSlots {
   renderEmpty?: () => ReactNode;
 }
 
-
 export interface ICommentTreeConfig extends ICommentTreeSlots {
   theme: TCommentThreeTheme;
   density: TCommentThreeDensity;
@@ -85,4 +89,8 @@ export interface ICommentTreeConfig extends ICommentTreeSlots {
   };
 }
 
-export type CommentTreeOverrides = Partial<ICommentTreeConfig>;
+export type ICommentTreeOverrides = Partial<ICommentTreeConfig>;
+
+export interface ICommentTreeProviderProps extends ICommentTreeOverrides {
+  children: ReactNode;
+}

@@ -1,5 +1,5 @@
-import { ICommentTreeConfig } from "@/types/IComments.interface";
-import { formatRelativeTime } from "@/utils/format";
+import { ICommentTreeConfig } from '@/types/IComments.interface';
+import { formatRelativeTime } from '@/utils/format';
 
 export const COMMENT_POSITION_START = 'start';
 export const COMMENT_POSITION_END = 'end';
@@ -38,8 +38,8 @@ export const DEFAULT_THREAD_PALETTE: readonly string[] = [
 ];
 
 export const DEFAULT_CONFIG: ICommentTreeConfig = {
-  theme: 'dark',
-  density: 'cozy',
+  theme: YACT_THEME_DARK,
+  density: YACT_DENSITY_COZY,
   accent: '#4d7cff',
   indent: 22,
   maxDepth: 8,
@@ -55,6 +55,7 @@ export const DEFAULT_CONFIG: ICommentTreeConfig = {
     collapse: 'Collapse thread',
     expand: 'Expand thread',
     depthLimit: 'depth limit',
-    hiddenReplies: (count: number | string) => `${count} hidden ${count === 1 ? 'reply' : 'replies'}`,
+    hiddenReplies: (count: number | string) =>
+      `${count} hidden ${count === 1 ? 'reply' : 'replies'}`,
   },
 };
