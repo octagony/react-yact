@@ -99,7 +99,14 @@ export interface ICommentTreeProviderProps extends ICommentTreeOverrides {
 export interface ICommentTreeProps extends ICommentTreeOverrides {
   comments: readonly ICommentNode[];
   className?: string;
-  collapsedIds?: readonly string[] | number[];
-  defaultCollapsedIds?: readonly string[] | number[];
-  onCollapsedChange?: (ids: string[] | number[]) => void;
+  collapsedIds?: readonly (string | number)[];
+  defaultCollapsedIds?: readonly (string | number)[];
+  onCollapsedChange?: (ids: (string | number)[]) => void;
+}
+
+export interface ICommentItemProps {
+  comment: ICommentNode;
+  depth: number;
+  collapsed: ReadonlySet<string | number>;
+  onToggle: (id: string | number) => void;
 }

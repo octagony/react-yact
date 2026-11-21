@@ -1,11 +1,48 @@
 import { CommentTreeProvider, useCommentTreeConfig } from '@/context/CommentTreeContext';
 import { ICommentTreeProps } from '@/types/IComments.interface';
+import { collectCollapsibleIds } from '@/utils';
 import { DENSITY_PRESETS } from '@/utils/constants';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { CommentItem } from './CommentItem';
 
-function CommentTreeRoot({ comments, className }: ICommentTreeProps) {
+function CommentTreeRoot({
+  comments,
+  className,
+  collapsedIds,
+  defaultCollapsedIds,
+  onCollapsedChange,
+}: ICommentTreeProps) {
   const config = useCommentTreeConfig();
   const preset = DENSITY_PRESETS[config.density];
+
+  const [internalCollapsed, setInternalCollapsed] = useState<readonly (string | number)[]>(() => {
+    if (defaultCollapsedIds) {
+      return defaultCollapsedIds;
+    }
+
+    if (config.autoCollapseDepth > 0) {
+      return collectCollapsibleIds(comments, config.autoCollapseDepth);
+    }
+
+    return [];
+  });
+
+  const collapsed = collapsedIds ?? internalCollapsed;
+  const collapsedSet = useMemo(() => new Set(collapsed), [collapsed]);
+
+  const handleToggle = useCallback(
+    (id: string | number) => {
+      const next: (string | number)[] = collapsedSet.has(id)
+        ? collapsed.filter((value) => value !== id)
+        : [...collapsed, id];
+
+      if (!collapsedIds) {
+        setInternalCollapsed(next);
+        onCollapsedChange?.(next);
+      }
+    },
+    [collapsed, collapsedIds, collapsedSet, onCollapsedChange],
+  );
 
   const rootStyle = useMemo<Record<string, string>>(
     () => ({
@@ -26,9 +63,19 @@ function CommentTreeRoot({ comments, className }: ICommentTreeProps) {
       style={rootStyle}
     >
       {comments.length === 0 ? (
-        <div className="yact-empty">No comments yet.</div>
+        (config.renderEmpty?.() ?? <div className="yact-empty">No comments yet.</div>)
       ) : (
-        <ul className="yact-list"></ul>
+        <ul className="yact-list">
+          {comments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              depth={0}
+              collapsed={collapsedSet}
+              onToggle={handleToggle}
+            />
+          ))}
+        </ul>
       )}
     </div>
   );
